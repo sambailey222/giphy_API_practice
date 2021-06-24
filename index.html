@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <img src="#" />
+  <button id="newImageButton">New Image</button>
+  <input type="text" id="search_text">
+  <button id="search_button">Search</button>
+
+  <script>
+    const img = document.querySelector('img');
+
+    function getNewImage() {
+      fetch('https://api.giphy.com/v1/gifs/translate?api_key=mefKaLZHTWzNVzqLadebB4tEm8QxAJAr&s=cats', {mode: 'cors'})
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(response) {
+          console.log(response.data.images.original.url);
+          img.src = response.data.images.original.url;
+        }
+        )
+    }
+
+    getNewImage();
+
+    const button = document.getElementById('newImageButton');
+    button.addEventListener("click", () => getNewImage());
+
+    const searchInput = document.getElementById("search_text");
+    const searchButton = document.getElementById("search_button");
+
+    function gifSearch() {
+      console.log(searchInput.value);
+
+      fetch(`https://api.giphy.com/v1/gifs/translate?api_key=mefKaLZHTWzNVzqLadebB4tEm8QxAJAr&s=${searchInput.value}`, {mode: 'cors'})
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(response) {
+          console.log(response.data.images.original.url);
+          img.src = response.data.images.original.url;
+        })
+        .catch(function(err) {
+          console.log("No images exist for this search term.");
+        })
+    }
+
+    searchButton.addEventListener("click", () => gifSearch());
+  </script>
+</body>
+</html>
+

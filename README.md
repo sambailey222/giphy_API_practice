@@ -1,1 +1,1 @@
-# giphy_API_practice
+Messing around with the Giphy API and fetch requests to display images of cats.
